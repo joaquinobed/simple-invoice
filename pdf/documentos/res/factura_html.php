@@ -49,26 +49,7 @@ table.page_footer {width: 100%; border: none; background-color: white; padding: 
             </tr>
         </table>
     </page_footer>
-    <table cellspacing="0" style="width: 100%;">
-        <tr>
-
-            <td style="width: 25%; color: #444444;">
-                <img style="width: 100%;" src="../../img/logo.jpg" alt="Logo"><br>
-                
-            </td>
-			<td style="width: 50%; color: #34495e;font-size:12px;text-align:center">
-                <span style="color: #34495e;font-size:14px;font-weight:bold"><?php echo NOMBRE_EMPRESA;?></span>
-				<br><?php echo DIRECCION_EMPRESA;?><br> 
-				Teléfono: <?php echo TELEFONO_EMPRESA;?><br>
-				Email: <?php echo EMAIL_EMPRESA;?>
-                
-            </td>
-			<td style="width: 25%;text-align:right">
-			FACTURA Nº <?php echo $numero_factura;?>
-			</td>
-			
-        </tr>
-    </table>
+    <?php include("encabezado_factura.php");?>
     <br>
     
 
@@ -177,21 +158,22 @@ while ($row=mysqli_fetch_array($sql))
 	
 	$nums++;
 	}
+	$impuesto=get_row('perfil','impuesto', 'id_perfil', 1);
 	$subtotal=number_format($sumador_total,2,'.','');
-	$total_iva=($subtotal * TAX )/100;
+	$total_iva=($subtotal * $impuesto )/100;
 	$total_iva=number_format($total_iva,2,'.','');
 	$total_factura=$subtotal+$total_iva;
 ?>
 	  
         <tr>
-            <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL &#36; </td>
+            <td colspan="3" style="widtd: 85%; text-align: right;">SUBTOTAL <?php echo $simbolo_moneda;?> </td>
             <td style="widtd: 15%; text-align: right;"> <?php echo number_format($subtotal,2);?></td>
         </tr>
 		<tr>
-            <td colspan="3" style="widtd: 85%; text-align: right;">IVA (<?php echo TAX; ?>)% &#36; </td>
+            <td colspan="3" style="widtd: 85%; text-align: right;">IVA (<?php echo $impuesto; ?>)% <?php echo $simbolo_moneda;?> </td>
             <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_iva,2);?></td>
         </tr><tr>
-            <td colspan="3" style="widtd: 85%; text-align: right;">TOTAL &#36; </td>
+            <td colspan="3" style="widtd: 85%; text-align: right;">TOTAL <?php echo $simbolo_moneda;?> </td>
             <td style="widtd: 15%; text-align: right;"> <?php echo number_format($total_factura,2);?></td>
         </tr>
     </table>
@@ -208,6 +190,6 @@ while ($row=mysqli_fetch_array($sql))
 
 <?php
 $date=date("Y-m-d H:i:s");
-$insert=mysqli_query($con,"INSERT INTO facturas VALUES ('','$numero_factura','$date','$id_cliente','$id_vendedor','$condiciones','$total_factura','1')");
+$insert=mysqli_query($con,"INSERT INTO facturas VALUES (NULL,'$numero_factura','$date','$id_cliente','$id_vendedor','$condiciones','$total_factura','1')");
 $delete=mysqli_query($con,"DELETE FROM tmp WHERE session_id='".$session_id."'");
 ?>
