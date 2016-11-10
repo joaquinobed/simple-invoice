@@ -3,7 +3,7 @@ Simple Invoice (Facturación Simple) es un sistema web desarrollado con PHP y My
 para realizar una factura comercial a nuestros clientes que va desde el manejo de usuarios, creación de productos, clientes y facturas 
 dentro del mismo sistema.
 
-Instalación en windows (servidor local)
+Instalación en windows (servidor local) 
 
 1-Descargar los archivos fuentes del sistema
 2- Copiar y descomprimir el archivo en la carpeta c:\xampp\htdocs, al final tendras una carpeta llamada “simple_invoice”, a la cual podras acceder desde el navegador como: http://localhost/simple_invoice/
