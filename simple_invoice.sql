@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2016 a las 15:48:48
+-- Tiempo de generación: 10-11-2016 a las 10:48:32
 -- Versión del servidor: 5.6.26
 -- Versión de PHP: 5.6.12
 
@@ -39,6 +39,60 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `currencies`
+--
+
+CREATE TABLE IF NOT EXISTS `currencies` (
+  `id` int(10) unsigned NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `symbol` varchar(255) NOT NULL,
+  `precision` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `thousand_separator` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `decimal_separator` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `currencies`
+--
+
+INSERT INTO `currencies` (`id`, `name`, `symbol`, `precision`, `thousand_separator`, `decimal_separator`, `code`) VALUES
+(1, 'US Dollar', '$', '2', ',', '.', 'USD'),
+(2, 'Libra Esterlina', '&pound;', '2', ',', '.', 'GBP'),
+(3, 'Euro', 'â‚¬', '2', '.', ',', 'EUR'),
+(4, 'South African Rand', 'R', '2', '.', ',', 'ZAR'),
+(5, 'Danish Krone', 'kr ', '2', '.', ',', 'DKK'),
+(6, 'Israeli Shekel', 'NIS ', '2', ',', '.', 'ILS'),
+(7, 'Swedish Krona', 'kr ', '2', '.', ',', 'SEK'),
+(8, 'Kenyan Shilling', 'KSh ', '2', ',', '.', 'KES'),
+(9, 'Canadian Dollar', 'C$', '2', ',', '.', 'CAD'),
+(10, 'Philippine Peso', 'P ', '2', ',', '.', 'PHP'),
+(11, 'Indian Rupee', 'Rs. ', '2', ',', '.', 'INR'),
+(12, 'Australian Dollar', '$', '2', ',', '.', 'AUD'),
+(13, 'Singapore Dollar', 'SGD ', '2', ',', '.', 'SGD'),
+(14, 'Norske Kroner', 'kr ', '2', '.', ',', 'NOK'),
+(15, 'New Zealand Dollar', '$', '2', ',', '.', 'NZD'),
+(16, 'Vietnamese Dong', 'VND ', '0', '.', ',', 'VND'),
+(17, 'Swiss Franc', 'CHF ', '2', '''', '.', 'CHF'),
+(18, 'Quetzal Guatemalteco', 'Q', '2', ',', '.', 'GTQ'),
+(19, 'Malaysian Ringgit', 'RM', '2', ',', '.', 'MYR'),
+(20, 'Real Brasile&ntilde;o', 'R$', '2', '.', ',', 'BRL'),
+(21, 'Thai Baht', 'THB ', '2', ',', '.', 'THB'),
+(22, 'Nigerian Naira', 'NGN ', '2', ',', '.', 'NGN'),
+(23, 'Peso Argentino', '$', '2', '.', ',', 'ARS'),
+(24, 'Bangladeshi Taka', 'Tk', '2', ',', '.', 'BDT'),
+(25, 'United Arab Emirates Dirham', 'DH ', '2', ',', '.', 'AED'),
+(26, 'Hong Kong Dollar', '$', '2', ',', '.', 'HKD'),
+(27, 'Indonesian Rupiah', 'Rp', '2', ',', '.', 'IDR'),
+(28, 'Peso Mexicano', '$', '2', ',', '.', 'MXN'),
+(29, 'Egyptian Pound', '&pound;', '2', ',', '.', 'EGP'),
+(30, 'Peso Colombiano', '$', '2', '.', ',', 'COP'),
+(31, 'West African Franc', 'CFA ', '2', ',', '.', 'XOF'),
+(32, 'Chinese Renminbi', 'RMB ', '2', ',', '.', 'CNY');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `detalle_factura`
 --
 
@@ -66,6 +120,33 @@ CREATE TABLE IF NOT EXISTS `facturas` (
   `total_venta` varchar(20) NOT NULL,
   `estado_factura` tinyint(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `perfil`
+--
+
+CREATE TABLE IF NOT EXISTS `perfil` (
+  `id_perfil` int(11) NOT NULL,
+  `nombre_empresa` varchar(150) NOT NULL,
+  `direccion` varchar(255) NOT NULL,
+  `ciudad` varchar(100) NOT NULL,
+  `codigo_postal` varchar(100) NOT NULL,
+  `estado` varchar(100) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `impuesto` int(2) NOT NULL,
+  `moneda` varchar(6) NOT NULL,
+  `logo_url` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `perfil`
+--
+
+INSERT INTO `perfil` (`id_perfil`, `nombre_empresa`, `direccion`, `ciudad`, `codigo_postal`, `estado`, `telefono`, `email`, `impuesto`, `moneda`, `logo_url`) VALUES
+(1, 'SISTEMAS WEB LA', 'Colonias Los Andes  #250', 'Moncagua', '3301', 'San Miguel', '+(503) 2682-555', 'info@obedalvarado.pw', 13, '$', 'img/1478792451_google30.png');
 
 -- --------------------------------------------------------
 
@@ -131,6 +212,12 @@ ALTER TABLE `clientes`
   ADD UNIQUE KEY `codigo_producto` (`nombre_cliente`);
 
 --
+-- Indices de la tabla `currencies`
+--
+ALTER TABLE `currencies`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
@@ -143,6 +230,12 @@ ALTER TABLE `detalle_factura`
 ALTER TABLE `facturas`
   ADD PRIMARY KEY (`id_factura`),
   ADD UNIQUE KEY `numero_cotizacion` (`numero_factura`);
+
+--
+-- Indices de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  ADD PRIMARY KEY (`id_perfil`);
 
 --
 -- Indices de la tabla `products`
@@ -175,6 +268,11 @@ ALTER TABLE `users`
 ALTER TABLE `clientes`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT de la tabla `currencies`
+--
+ALTER TABLE `currencies`
+  MODIFY `id` int(10) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=33;
+--
 -- AUTO_INCREMENT de la tabla `detalle_factura`
 --
 ALTER TABLE `detalle_factura`
@@ -184,6 +282,11 @@ ALTER TABLE `detalle_factura`
 --
 ALTER TABLE `facturas`
   MODIFY `id_factura` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `perfil`
+--
+ALTER TABLE `perfil`
+  MODIFY `id_perfil` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `products`
 --
