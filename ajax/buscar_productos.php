@@ -9,11 +9,12 @@
 	/* Connect To Database*/
 	require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 	require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
-	
+	//Archivo de funciones PHP
+	include("../funciones.php");
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if (isset($_GET['id'])){
 		$id_producto=intval($_GET['id']);
-		$query=mysqli_query($con, "select * from detalle_cotizacion_demo where id_producto='".$id_producto."'");
+		$query=mysqli_query($con, "select * from detalle_factura where id_producto='".$id_producto."'");
 		$count=mysqli_num_rows($query);
 		if ($count==0){
 			if ($delete1=mysqli_query($con,"DELETE FROM products WHERE id_producto='".$id_producto."'")){
@@ -79,7 +80,7 @@
 		$query = mysqli_query($con, $sql);
 		//loop through fetched data
 		if ($numrows>0){
-			
+			$simbolo_moneda=get_row('perfil','moneda', 'id_perfil', 1);
 			?>
 			<div class="table-responsive">
 			  <table class="table">
@@ -114,7 +115,7 @@
 						<td ><?php echo $nombre_producto; ?></td>
 						<td><?php echo $estado;?></td>
 						<td><?php echo $date_added;?></td>
-						<td>$<span class='pull-right'><?php echo number_format($precio_producto,2);?></span></td>
+						<td><?php echo $simbolo_moneda;?><span class='pull-right'><?php echo number_format($precio_producto,2);?></span></td>
 					<td ><span class="pull-right">
 					<a href="#" class='btn btn-default' title='Editar producto' onclick="obtener_datos('<?php echo $id_producto;?>');" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-edit"></i></a> 
 					<a href="#" class='btn btn-default' title='Borrar producto' onclick="eliminar('<?php echo $id_producto; ?>')"><i class="glyphicon glyphicon-trash"></i> </a></span></td>
@@ -124,7 +125,8 @@
 				}
 				?>
 				<tr>
-					<td colspan=6><span class="pull-right"><?
+					<td colspan=6><span class="pull-right">
+					<?php
 					 echo paginate($reload, $page, $total_pages, $adjacents);
 					?></span></td>
 				</tr>

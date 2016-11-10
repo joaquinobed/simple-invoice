@@ -14,7 +14,8 @@ if (isset($_POST['precio_venta'])){$precio_venta=floatval($_POST['precio_venta']
 	/* Connect To Database*/
 	require_once ("../config/db.php");//Contiene las variables de configuracion para conectar a la base de datos
 	require_once ("../config/conexion.php");//Contiene funcion que conecta a la base de datos
-	
+	//Archivo de funciones PHP
+	include("../funciones.php");
 if (!empty($id) and !empty($cantidad) and !empty($precio_venta))
 {
 $insert_tmp=mysqli_query($con, "INSERT INTO detalle_factura (numero_factura, id_producto,cantidad,precio_venta) VALUES ('$numero_factura','$id','$cantidad','$precio_venta')");
@@ -25,7 +26,7 @@ if (isset($_GET['id']))//codigo elimina un elemento del array
 $id_detalle=intval($_GET['id']);	
 $delete=mysqli_query($con, "DELETE FROM detalle_factura WHERE id_detalle='".$id_detalle."'");
 }
-
+$simbolo_moneda=get_row('perfil','moneda', 'id_perfil', 1);
 ?>
 <table class="table">
 <tr>
@@ -66,24 +67,25 @@ $delete=mysqli_query($con, "DELETE FROM detalle_factura WHERE id_detalle='".$id_
 		</tr>		
 		<?php
 	}
+	$impuesto=get_row('perfil','impuesto', 'id_perfil', 1);
 	$subtotal=number_format($sumador_total,2,'.','');
-	$total_iva=($subtotal * TAX )/100;
+	$total_iva=($subtotal * $impuesto )/100;
 	$total_iva=number_format($total_iva,2,'.','');
 	$total_factura=$subtotal+$total_iva;
 	$update=mysqli_query($con,"update facturas set total_venta='$total_factura' where id_factura='$id_factura'");
 ?>
 <tr>
-	<td class='text-right' colspan=4>SUBTOTAL $</td>
+	<td class='text-right' colspan=4>SUBTOTAL <?php echo $simbolo_moneda;?></td>
 	<td class='text-right'><?php echo number_format($subtotal,2);?></td>
 	<td></td>
 </tr>
 <tr>
-	<td class='text-right' colspan=4>IVA (<?php echo TAX?>)% $</td>
+	<td class='text-right' colspan=4>IVA (<?php echo $impuesto;?>)% <?php echo $simbolo_moneda;?></td>
 	<td class='text-right'><?php echo number_format($total_iva,2);?></td>
 	<td></td>
 </tr>
 <tr>
-	<td class='text-right' colspan=4>TOTAL $</td>
+	<td class='text-right' colspan=4>TOTAL <?php echo $simbolo_moneda;?></td>
 	<td class='text-right'><?php echo number_format($total_factura,2);?></td>
 	<td></td>
 </tr>

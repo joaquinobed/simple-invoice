@@ -61,7 +61,7 @@
 					$codigo_producto=$row['codigo_producto'];
 					$nombre_producto=$row['nombre_producto'];
 					$precio_venta=$row["precio_producto"];
-					$precio_venta=number_format($precio_venta,2);
+					$precio_venta=number_format($precio_venta,2,'.','');
 					?>
 					<tr>
 						<td><?php echo $codigo_producto; ?></td>
@@ -79,7 +79,8 @@
 				}
 				?>
 				<tr>
-					<td colspan=5><span class="pull-right"><?
+					<td colspan=5><span class="pull-right">
+					<?php
 					 echo paginate($reload, $page, $total_pages, $adjacents);
 					?></span></td>
 				</tr>

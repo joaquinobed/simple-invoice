@@ -131,7 +131,8 @@
 				}
 				?>
 				<tr>
-					<td colspan=7><span class="pull-right"><?
+					<td colspan=7><span class="pull-right">
+					<?php
 					 echo paginate($reload, $page, $total_pages, $adjacents);
 					?></span></td>
 				</tr>

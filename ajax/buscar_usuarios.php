@@ -15,7 +15,7 @@
 		$query=mysqli_query($con, "select * from users where user_id='".$user_id."'");
 		$rw_user=mysqli_fetch_array($query);
 		$count=$rw_user['user_id'];
-		if ($count==0){
+		if ($user_id!=1){
 			if ($delete1=mysqli_query($con,"DELETE FROM users WHERE user_id='".$user_id."'")){
 			?>
 			<div class="alert alert-success alert-dismissible" role="alert">
@@ -124,7 +124,8 @@
 				}
 				?>
 				<tr>
-					<td colspan=9><span class="pull-right"><?
+					<td colspan=9><span class="pull-right">
+					<?php
 					 echo paginate($reload, $page, $total_pages, $adjacents);
 					?></span></td>
 				</tr>
