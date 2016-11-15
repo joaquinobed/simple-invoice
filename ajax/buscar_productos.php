@@ -107,7 +107,7 @@
 					
 					<input type="hidden" value="<?php echo $codigo_producto;?>" id="codigo_producto<?php echo $id_producto;?>">
 					<input type="hidden" value="<?php echo $nombre_producto;?>" id="nombre_producto<?php echo $id_producto;?>">
-					<input type="hidden" value="<?php echo $estado;?>" id="estado<?php echo $id_producto;?>">
+					<input type="hidden" value="<?php echo $status_producto;?>" id="estado<?php echo $id_producto;?>">
 					<input type="hidden" value="<?php echo number_format($precio_producto,2,'.','');?>" id="precio_producto<?php echo $id_producto;?>">
 					<tr>
 						
