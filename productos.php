@@ -133,5 +133,6 @@ $( "#editar_producto" ).submit(function( event ) {
 			$("#mod_codigo").val(codigo_producto);
 			$("#mod_nombre").val(nombre_producto);
 			$("#mod_precio").val(precio_producto);
+			$("#mod_estado").val(estado);
 		}
 </script>
