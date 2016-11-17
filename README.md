@@ -6,6 +6,7 @@ dentro del mismo sistema.
 Instalación en windows (servidor local) 
 
 1-Descargar los archivos fuentes del sistema
+
 2- Copiar y descomprimir el archivo en la carpeta c:\xampp\htdocs, al final tendras una carpeta llamada “simple_invoice”, a la cual podras acceder desde el navegador como: http://localhost/simple_invoice/
 
 3- Crear una base de datos usando PHPMyAdmin accediendo a la url siguiente: http://localhost/phpmyadmin/
@@ -17,3 +18,5 @@ Instalación en windows (servidor local)
 6- Vista web: http://localhost/simple_invoice/
 
 7- Datos de acceso por defecto: usuario: admin y contraseña: admin
+
+Para ver las instrucciones de instalación visita: http://obedalvarado.pw/simple-invoice/
